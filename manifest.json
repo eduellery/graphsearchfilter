@@ -3,11 +3,7 @@
   "name": "Graph Search Filter",
   "description": "Do more with FB!",
   "version": "1.0",
-  "icons": {"48": "icon48.png", "72": "icon72.png", "128": "icon128.png"},
-  "background": {
-    "scripts":["frontend.js", "backend.js"],
-    "persistence": false
-  },
+  "icons": {"32": "icon32.png", "48": "icon48.png", "72": "icon72.png", "128": "icon128.png"},
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
     "js": ["./frontend.event.js", "./frontend.privacy.js", "./backend.js", "./jquery.min.js"],
