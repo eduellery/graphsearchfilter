@@ -10,7 +10,7 @@
   },
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
-    "js": ["frontend.js", "backend.js"],
+    "js": ["./frontend.event.js", "./frontend.privacy.js", "./backend.js", "./jquery.min.js"],
     "run_at": "document_end"
   }]
 }
