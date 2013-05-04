@@ -7,7 +7,9 @@
   "web_accessible_resources": 
     ["icon16.png", 
      "privacy_modal.html", 
-     "privacy_modal.js"],
+     "privacy_modal.js",
+     "event_modal.html",
+     "event_modal.js"],
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
     "css": ["./style.css"],
