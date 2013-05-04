@@ -4,13 +4,9 @@
   "description": "Do more with FB!",
   "version": "1.0",
   "icons": {"48": "icon48.png", "72": "icon72.png", "128": "icon128.png"},
-  "background": {
-    "scripts":["frontend.js", "backend.js"],
-    "persistence": false
-  },
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
-    "js": ["frontend.js", "backend.js"],
+    "js": ["jquery.js", "frontend.js", "backend.js"],
     "run_at": "document_end"
   }]
 }
