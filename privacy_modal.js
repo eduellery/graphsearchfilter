@@ -23,6 +23,7 @@ $('#gsfhackquery').keyup(function() {
 		$('#gsfhack-autocomplete').css('left',  position.left + parseInt($('#gsfhackquery').css('margin-left')) + "px");
 
 		getSuggestions(new_query, function(list) {
+      console.log(list);
 			for (var i  = 0; i < list.length && i < 5; i++) {
 				var suggestion = list[i];
 				var text = "";
