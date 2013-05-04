@@ -12,41 +12,11 @@ $('#gsfhackok').click(function() {
   $('#gsfhackmodal').remove();
 
 });
-//   $("input[name^=\"audience\"]").remove();
-//   //$("select[name^=\"audience\"]").remove();
 
-//   function createInput(name, value){
-// 		var el = $("<input />")
-// 		  	.attr("type", "hidden")
-// 		  	.attr("autocomplete", "off")
-// 		  	.attr("name", name)
-// 		  	.attr("value", value);
-// 		console.log(el);
-// 		return el;
-//   }
-
-//   if($(".customPrivacyInputs").length == 0)
-//   	$("<span />").attr("class", "customPrivacyInputs").appendTo(body);
-
-//   createInput("audience[0][value]", "111").appendTo(".customPrivacyInputs");
-//   createInput("audience[0][custom_value]", "111").appendTo(".customPrivacyInputs");
-//   createInput("audience[0][friends]", "30").appendTo(".customPrivacyInputs");
-//   for(var i in users)
-//   	createInput("audience[0][ids_anon][" + i + "]", users[i].id).appendTo(".customPrivacyInputs");
-
-//   $("option[value=\"111\"]").remove();
-//   $("option[value=\"666\"]").val("111");
-
-//   $('#gsfhackmodal').remove();
-// });
 $('#gsfhackcancel').click(function() {
   $('#gsfhackmodal').remove();
 });
-// // Load parameters to save custom audience
-// $('#gsfhackhidden').append($('input[name="fb_dtsg"]').first().clone())
-// $('#gsfhackhidden').append('<input name="__user" type="hidden" value="' + $.parseJSON($('a.fbxWelcomeBoxBlock').first().attr('data-gt'))["bmid"] + '">');
 
-// // 
 var getTheUsersFromTheQuery = function(semantic) {
 
 	$('#gsfhackloader').remove();

@@ -2,7 +2,7 @@ $(function(){
 	console.log("weee");
 	console.log($('li[data-label="Custom"]'));
 
-	var GRAPH_SEARCH_LABEL = 'Graph Picker';
+	var GRAPH_SEARCH_LABEL = 'GraphPicker';
 
 	// Copy the Custom privacy option, and polish the clone (turn it into a Graph Search option)
 	var g_s_option = $('li[data-label="Custom"]')
@@ -32,5 +32,5 @@ $(function(){
 	$('li[data-label="Custom"]').after(g_s_option);
 
 	// Add the option to the select
-	$('select[name="audience[0][value]"] > option[value="111"]').after('<option value="666">Graph Search</option>');
+	$('select[name="audience[0][value]"] > option[value="111"]').after('<option value="666">GraphPicker</option>');
 });
