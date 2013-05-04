@@ -2,10 +2,10 @@ var GRAPH_SEARCH_LABEL = 'Graph Search';
 
 // Copy the Custom privacy option, and polish the clone (turn it into a Graph Search option)
 var g_s_option = $('li[data-label="Custom"]')
-											.clone()
-											.removeAttr('id')
-											.attr('data-label', GRAPH_SEARCH_LABEL)
-											.removeClass('checked');
+  .clone()
+  .removeAttr('id')
+  .attr('data-label', GRAPH_SEARCH_LABEL)
+  .removeClass('checked');
 // Remove checked 
 var inner_gso = g_s_option.children(':first').removeAttr('aria-checked');
 // Add our icon to the option
