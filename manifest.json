@@ -12,7 +12,7 @@
      "event_modal.js"],
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
-    "css": ["./style.css"],
+    "css": ["./style.css", "./fbcss.css"],
     "js": ["./jquery.min.js", "./backend.js", "./frontend.event.js", "./frontend.privacy.js"],
     "run_at": "document_end"
   }]

@@ -38,9 +38,9 @@
 
 //   $('#gsfhackmodal').remove();
 // });
-// $('#gsfhackcancel').click(function() {
-//   $('#gsfhackmodal').remove();
-// });
+$('#gsfhackcancel').click(function() {
+  $('#gsfhackmodal').remove();
+});
 // // Load parameters to save custom audience
 // $('#gsfhackhidden').append($('input[name="fb_dtsg"]').first().clone())
 // $('#gsfhackhidden').append('<input name="__user" type="hidden" value="' + $.parseJSON($('a.fbxWelcomeBoxBlock').first().attr('data-gt'))["bmid"] + '">');
@@ -59,6 +59,23 @@ var getTheUsersFromTheQuery = function(semantic) {
 	getUsers(semantic, function(list) {
 		$('#gsfhackloader').remove();
 		if (list.length > 0) {
+			$('.boxcheckeverybody').remove();
+
+			var check_all_button = '<div class="boxcheckeverybody"><input id="checkeverybody" type="checkbox"/>Select/Deselect All</div>'
+			$('.gsfhack-results-box').first().before(check_all_button);
+			$('#checkeverybody').click(function() {
+				$('#checkeverybody').prop("checked", !$('#checkeverybody').is(':checked'));
+			});
+			$('.boxcheckeverybody').click(function(e) {
+				e.stopPropagation();
+				$('#checkeverybody').prop("checked", !$('#checkeverybody').is(':checked'));
+				$('#checkeverybody').change();
+				return true;
+			});
+			$('#checkeverybody').change(function() {
+				$('input[name="checkableitems[]"]').prop("checked", $(this).is(':checked'));
+			});
+
 			for (var i =  0; i < list.length; i++) {
 				user = list[i];
 				user_li = '<li id="' + user.uid + '" class="multiColumnCheckable checkableListItem" role="option">' + 
