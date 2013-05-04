@@ -92,8 +92,12 @@ function getSuggestions(search_string,callback){
 
 // Constants
 var searchBaseUrl = "https://www.facebook.com/search/"
-var userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
+var userId = undefined;
 var resultsPageBaseUrl = "https://www.facebook.com/ajax/pagelet/generic.php/BrowseScrollingSetPagelet";
+
+$(function(){
+    userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
+});
 
 // Builds a search URL from a semantic query.
 function makeUrlFromSemantic(semantic){

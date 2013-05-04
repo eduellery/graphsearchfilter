@@ -9,27 +9,26 @@ $('#gsfhackok').click(function() {
     };
     users.push(user);
   });
-  var userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
-  var jsonPost = {
-                  fb_dtsg : 'AQDSt8Iq', 
-                  friends_value : '30',
-                  enable_tag_expansion: '1',
-                  option_id:'u_0_w',
-                  fbid : '0',
-                  source : '',
-                  '__user': userId,
-                  '__a':1,
-                  '__dyn': '7n8ahxoNpGodo',
-                  '__req':'h',
-                  phstamp:'1658168831165673113384'
-                  };
-  for (var i in users){
-    jsonPost['visibleto[' + i + ']'] = users[i].id;
-    jsonPost['text_visibleto[' + i + ']'] = users[i].name;
+
+  $("input[name^=\"audience\"]").remove();
+  $("select[name^=\"audience\"]").remove();
+
+  function createInput(name, value){
+		var el = $("<input />")
+		  	.attr("type", "hidden")
+		  	.attr("autocomplete", "off")
+		  	.attr("name", name)
+		  	.attr("value", value);
+		console.log(el);
+		return el;
   }
-  $.post('https://www.facebook.com/ajax/privacy/custom_save/',jsonPost,function(resultado){
-    console.log(resultado);
-  },'html');
+
+  createInput("audience[0][value]", "111").appendTo(".customPrivacyInputs");
+  createInput("audience[0][custom_value]", "111").appendTo(".customPrivacyInputs");
+  createInput("audience[0][friends]", "30").appendTo(".customPrivacyInputs");
+  for(var i in users)
+  	createInput("audience[0][ids_anon][" + i + "]", users[i].id).appendTo(".customPrivacyInputs");
+
   $('#gsfhackmodal').remove();
 });
 $('#gsfhackcancel').click(function() {
