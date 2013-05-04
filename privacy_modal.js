@@ -1,6 +1,7 @@
 // Add listener to both ok and cancel button to fade the modal when it's clicked
 $('#gsfhackok').click(function() {
-  var checked_people = $('#filtered_graph_people input[checked]').closest("li");
+  var checked_people = $('#filtered_graph_people input:checked').closest("li");
+  console.log(checked_people);
   var users = [];
   checked_people.each(function(k,v){
     var user = {
@@ -11,7 +12,7 @@ $('#gsfhackok').click(function() {
   });
 
   $("input[name^=\"audience\"]").remove();
-  $("select[name^=\"audience\"]").remove();
+  //$("select[name^=\"audience\"]").remove();
 
   function createInput(name, value){
 		var el = $("<input />")
@@ -23,11 +24,17 @@ $('#gsfhackok').click(function() {
 		return el;
   }
 
+  if($(".customPrivacyInputs").length == 0)
+  	$("<span />").attr("class", "customPrivacyInputs").appendTo(body);
+
   createInput("audience[0][value]", "111").appendTo(".customPrivacyInputs");
   createInput("audience[0][custom_value]", "111").appendTo(".customPrivacyInputs");
   createInput("audience[0][friends]", "30").appendTo(".customPrivacyInputs");
   for(var i in users)
   	createInput("audience[0][ids_anon][" + i + "]", users[i].id).appendTo(".customPrivacyInputs");
+
+  $("option[value=\"111\"]").remove();
+  $("option[value=\"666\"]").val("111");
 
   $('#gsfhackmodal').remove();
 });
