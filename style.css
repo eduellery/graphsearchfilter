@@ -55,3 +55,8 @@
 .gsfhack-sugbox:hover {
 	background-color: #5070B0;
 }	
+
+.gsfhack-results-box {
+	margin-bottom: 32px;
+	margin-top: 32px;
+}
