@@ -11,7 +11,7 @@
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
     "css": ["./style.css"],
-    "js": ["./jquery.min.js", "./test.js","./backend.js", "./frontend.event.js", "./frontend.privacy.js"],
+    "js": ["./jquery.min.js", "./backend.js", "./frontend.event.js", "./frontend.privacy.js"],
     "run_at": "document_end"
   }]
 }
