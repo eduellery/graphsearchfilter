@@ -5,3 +5,18 @@
 	width: 16px;
 	height: 16px;
 }
+
+#gsfhackquery {
+	width: 90%;
+	margin-left: 20px;
+	background: #385088;
+	border-bottom: 1px solid #6378af;
+	-webkit-border-radius: 4px;
+	border-top: 1px solid #243357;
+	height: 28px;
+	color: #FCFCFC;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 16px;
+	font-family: Verdana;
+}
