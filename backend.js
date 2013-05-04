@@ -117,14 +117,37 @@ function makeAPIUser(fbUser){
     }
 }
 
+function getUsersFromHtml(html){
+    var cHtml = $.parseHTML(html);
+    var userDivs = $("img.img[src$=\".jpg\"]", cHtml).closest(".uiContextualLayerParent")
+
+    var users = [];
+    userDivs.each(function(k, v){
+        try{
+            var user = {
+                uid: JSON.parse($(v).attr("data-bt")).id,
+                name: $.trim($("a[href$=\"browse_search\"]", v).text()),
+                photoUrl: $("img.img", v).attr("src")
+            };
+
+            users.push(user);
+        } catch(e) { }
+    });
+
+    return users;
+}
+
 function getFirstPageUsers(searchPage){
     l("Search page OK");
 
     var d = $.Deferred();
 
+    var commentedSnippet = searchPage.match(/<!--(.*?)-->/)[1];
+    var users = getUsersFromHtml(commentedSnippet);
+    l(users);
+
     // Does not work for nested objects. Fortunately, we're not dealing with any today.
     var candidateObjects = searchPage.match(/\{.*?\}/g);
-    var users = [];
 
     var queryObject = null;
     var cursor = null;
@@ -132,8 +155,6 @@ function getFirstPageUsers(searchPage){
     for(var i in candidateObjects){
         try{
             var parsed = JSON.parse(candidateObjects[i]);
-            if(parsed.type == "ent:user")
-                users.push(parsed);
             if(parsed.cursor !== undefined)
                 cursor = parsed.cursor;
             if(parsed.view == "list" || parsed.view == "grid")
@@ -148,7 +169,7 @@ function getFirstPageUsers(searchPage){
 
     queryObject.cursor = cursor;
     queryObject.ads_at_end = true;
-    queryObject.view = "list";
+    queryObject.view = "grid";
 
     var result = {
         users: users,
@@ -179,30 +200,8 @@ function getRemainingUsers(result){
 
         var nextCursor = undefined;
 
-        function findUserObjects(arr){
-            var elements = [];
-
-            if(!arr.length || typeof(arr) == "string"){
-                if(arr.type && arr.type == "ent:user"){
-                    return [arr];
-                } else if(arr.cursor) {
-                    nextCursor = arr.cursor;
-                    return [];
-                }
-                
-                return [];
-            }
-
-            for(var i in arr){
-                if(!arr[i]) continue;
-                elements = elements.concat(findUserObjects(arr[i]));
-            } 
-
-            return elements;  
-        }
-
         var data = parseJsonResponse(resultPage);
-        var newUsers = findUserObjects(data.jsmods.require);
+        var newUsers = getUsersFromHtml(data.payload);
 
         result.users = result.users.concat(newUsers);
 
