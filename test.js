@@ -1,7 +1,8 @@
 function l(data){ console.log(data); }
 
-var testQuery = "my friends who live in braz";
-
+//var testQuery = "my friends who live in braz";
+//var testQuery = ["My friends who live in ", {text: "São Paulo, Brazil", type :"page", uid:106336072738718}, " and like"];
+var testQuery = ["My friends who live in ",{"uid":"105429806157119","type":"page","text":"Brazil"}," and like"];
 var searchBaseUrl = "https://www.facebook.com/search/"
 var autocompleteBaseUrl = "https://www.facebook.com/ajax/typeahead/search/facebar/query/";
 var resultsPageBaseUrl = "https://www.facebook.com/ajax/pagelet/generic.php/BrowseScrollingSetPagelet";
@@ -26,6 +27,7 @@ function getEntity(entities, uid){
 // Builds a search URL from a semantic query.
 function makeUrlFromSemantic(semantic){
 	// We should probably build a tree and traverse it in postorder. But screw that, this works too.
+	l(semantic);
 	return semantic.match(/[a-zA-Z0-9]+/g).reverse().join("/")
 }
 
@@ -53,21 +55,24 @@ function buildAutocompleteQuery(query){
 }
 
 // Get autocomplete suggestions for the test query.
-$.get(autocompleteBaseUrl, buildAutocompleteQuery([testQuery]), null, "html").then(function(data){
+$.get(autocompleteBaseUrl, buildAutocompleteQuery(testQuery), null, "html").then(function(data){
 	l("First autocomplete OK");
 
 	var results = parseJsonResponse(data);
 
 	var p = results.payload;
-	var test = p.results[0];
+	p.results.sort(function(a, b){ return b.cost - a.cost; });
+	var test = p.results[1];
 	var display = test.parse.display;
 
 	var newQuery = [];
+	l(display);
 	for(var i in display){
 		if(typeof(display[i]) == "string"){
 			newQuery.push(display[i]);
 		} else if(typeof(display[i]) == "object") {
 			var entity = display[i];
+			entity.type = entity.type.replace("ent:", "");
 			entity.text = getEntity(p.entities, entity.uid).text;
 			newQuery.push(entity);
 		}
@@ -82,9 +87,13 @@ $.get(autocompleteBaseUrl, buildAutocompleteQuery([testQuery]), null, "html").th
 	var results = parseJsonResponse(data);
 	l(results);
 
-	var actualQuery = results.payload.results[0].semantic;
+	var p = results.payload;
+	p.results.sort(function(a, b){ return b.cost - a.cost; });
+
+	var actualQuery = p.results[0].semantic;
 	var url = makeUrlFromSemantic(actualQuery);
 
+	l(url);
 	return $.get(searchBaseUrl + url, null, "html");
 
 // Get the first page of results for that query.
@@ -112,6 +121,10 @@ $.get(autocompleteBaseUrl, buildAutocompleteQuery([testQuery]), null, "html").th
 		} catch(e) { }
 	}
 
+	if(!queryObject)
+		l("No results!");
+	return null;
+	
 	queryObject.cursor = cursor;
 	queryObject.ads_at_end = true;
 	queryObject.view = "list";
