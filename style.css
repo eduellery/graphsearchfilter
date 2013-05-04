@@ -65,17 +65,16 @@
 
 #checkeverybody {
 	display: inline-block; 
-	margin-left: 25px;	
-	margin-top: 25px;
 }
 
-.checkeverybodylabel {
-	background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y_/r/I3I5QS32mPC.png);
-	background-repeat: no-repeat;
-	background-size: auto;
-	background-position: -1px -539px;
+.boxcheckeverybody {
+	display: inline-block;
+	margin-left: 25px;	
+	margin-top: 25px;
+	padding: 6px;
 	background-color: #5b74a8;
 	border-color: #29447e #29447e #1a356e;
 	color: #fff;
-	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
 }

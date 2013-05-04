@@ -60,9 +60,20 @@ var getTheUsersFromTheQuery = function(semantic) {
 		$('#gsfhackloader').remove();
 		if (list.length > 0) {
 
-			var check_all_button = '<input id="checkeverybody" type="checkbox"/><span class="checkeverybodylabel">Select/Deselect All</span>'
+			$('.boxcheckeverybody').remove();
+
+			var check_all_button = '<div class="boxcheckeverybody"><input id="checkeverybody" type="checkbox"/>Select/Deselect All</div>'
 			$('.gsfhack-results-box').first().before(check_all_button);
 			$('#checkeverybody').click(function() {
+				$('#checkeverybody').prop("checked", !$('#checkeverybody').is(':checked'));
+			});
+			$('.boxcheckeverybody').click(function(e) {
+				e.stopPropagation();
+				$('#checkeverybody').prop("checked", !$('#checkeverybody').is(':checked'));
+				$('#checkeverybody').change();
+				return true;
+			});
+			$('#checkeverybody').change(function() {
 				$('input[name="checkableitems[]"]').prop("checked", $(this).is(':checked'));
 			});
 
