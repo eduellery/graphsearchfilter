@@ -1,3 +1,51 @@
+
+var testQuery = ["My Friends who live in ", {text: "Curitiba, Brazil", type :"page", uid:106336072738718}, " and like"];
+
+var searchBaseUrl = "https://www.facebook.com/search/"
+var autocompleteBaseUrl = "https://www.facebook.com/ajax/typeahead/search/facebar/query/";
+var resultsPageBaseUrl = "https://www.facebook.com/ajax/pagelet/generic.php/BrowseScrollingSetPagelet";
+
+// Probably not the best way, but it works.
+var userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
+
+l("Starting test for user " + userId);
+
+// Strips trailing for(;;) from response.
+function parseJsonResponse(response){
+	return JSON.parse(response.substring(9));
+}
+
+
+// Builds a search URL from a semantic query.
+function makeUrlFromSemantic(semantic){
+	// We should probably build a tree and traverse it in postorder. But screw that, this works too.
+	return semantic.match(/[a-zA-Z0-9]+/g).reverse().join("/")
+}
+
+// Builds an object with the magical incantations.
+function buildAutocompleteQuery(query){
+	var baseQuery = {
+		value: null,
+		context: "facebar",
+		grammar_version: "7ca1b059f1a46f3d3cb62914007c6e86432a41e1",
+		viewer: userId,
+		rsp: "search",
+		sid: 0.14813221991062164,
+		qid: 33,
+		see_more: false,
+		max_results: 8, // Customizable!
+		num_entities: 0,
+		__user: userId,
+		__a: 1,
+		__dyn: "7n8ahxoNpEeE",
+		__req: "1l"
+	};
+
+	baseQuery.value = JSON.stringify(query);
+	return baseQuery;
+}
+
+
 function mountApiSuggestionItem(result,entities){
   //Get a item from result and a list of entities and do the magic!
   var ID = result['semantic'];
@@ -20,6 +68,7 @@ function mountApiSuggestionItem(result,entities){
   }
   var response =  {'query': newQuery, 'subtext' : subtext};
   response[ID] = semanticForest;
+  response.semantic = ID;
   return response;
   
 }
@@ -58,7 +107,7 @@ function downloadAutoComplete(search_string,callback){
 
   var data = $.get("https://www.facebook.com/ajax/typeahead/search/facebar/query/",json_query, function parseSuggestionList(data){
     //Pegar cada campo do results substitiuir os items em entities e gera a lista
-    console.log("cheguei no callback");
+    //console.log("cheguei no callback");
     var fbJson = JSON.parse(data.substring(9));
     var result = [];
     for (var i in fbJson['payload']['results']){
@@ -74,7 +123,8 @@ function downloadAutoComplete(search_string,callback){
 //APENAS FUNCIONA COM MEU USER ID!!!
 //
 var a = ["My Friends who live in ", {text: "Curitiba, Brazil", type :"page", uid:106336072738718}, " and like"];
-var a = ["Graph"];
+//var a = ["Graph"];
 //console.log(JSON.stringify(a));
-//downloadAutoComplete(a, function log (data){ console.log(data);});
-//chrome.cookies.get(object details, function callback);
+//downloadAutoComplete(a, function log (newQuery){
+//  console.log("Results from autcomplete above");
+//  console.log(newQuery);});
