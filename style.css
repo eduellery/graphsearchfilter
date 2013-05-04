@@ -1,0 +1,7 @@
+.gsfhack {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/icon32.png');
+	background-size: auto;
+	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+}
