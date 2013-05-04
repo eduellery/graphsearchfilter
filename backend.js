@@ -1,4 +1,5 @@
 
+function l(data){ console.log(data); }
 
 function mountApiSuggestionItem(result,entities){
     //Get a item from result and a list of entities and do the magic!
@@ -88,7 +89,6 @@ function getSuggestions(search_string,callback){
 //   console.log("Results from autcomplete above");
 //   console.log(newQuery);});
 
-function l(data){ console.log(data); }
 
 // Constants
 var searchBaseUrl = "https://www.facebook.com/search/"
@@ -206,9 +206,35 @@ function getRemainingUsers(result){
         var data = parseJsonResponse(resultPage);
         var newUsers = getUsersFromHtml(data.payload);
 
+        function findUserObjects(arr){
+            var elements = [];
+
+            if(!arr.length || typeof(arr) == "string"){
+                if(arr.type && arr.type == "ent:user"){
+                    return [arr];
+                } else if(arr.cursor) {
+                    nextCursor = arr.cursor;
+                    return [];
+                }
+                
+                return [];
+            }
+
+            for(var i in arr){
+                if(!arr[i]) continue;
+                elements = elements.concat(findUserObjects(arr[i]));
+            } 
+
+            return elements;    
+        }
+
+        var data = parseJsonResponse(resultPage);
+        findUserObjects(data.jsmods.require);
+        
         result.users = result.users.concat(newUsers);
 
         if(nextCursor == undefined || newUsers.length == 0){
+            l("Next cursor not found.")
             d.resolve(result.users);
         } else {
             l(["Users entrando", newUsers]);
@@ -217,6 +243,8 @@ function getRemainingUsers(result){
         }
     }
 
+
+
     getNextPage(processPage);
 
     return d.promise();
@@ -224,10 +252,16 @@ function getRemainingUsers(result){
 
 function getUsers(semantic, callback){
 
-    getFirstPage(semantic, callback)
-        .then(getFirstPageUsers, callback)
-        .then(getRemainingUsers, callback)
-        .then(callback, callback);
+    // getFirstPage(semantic, callback)
+    //     .then(getFirstPageUsers, callback)
+    //     .then(getRemainingUsers, callback)
+    //     .then(callback, callback);
+
+    getFirstPage(semantic)
+        .then(getFirstPageUsers)
+        .then(getRemainingUsers)
+        .then(callback);
+
 }
 
 // var testQuery = ["My friends who live in ",{"uid":"105429806157119","type":"page","text":"Brazil"}," and are younger than me"];
