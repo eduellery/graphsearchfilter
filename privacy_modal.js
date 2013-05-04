@@ -71,7 +71,7 @@ var getTheUsersFromTheQuery = function(semantic) {
 				'</li>';
 				$('#filtered_graph_people').append(user_li);
 				$('#' + user.uid).click(function() {
-					$('#check' + $(this).attr('id')).attr("checked", !$('#check' + $(this).attr('id')).attr("checked"));
+					$('#check' + $(this).attr('id')).prop("checked", !$('#check' + $(this).attr('id')).is(':checked'));
 					$('#gsfhackmyselectedfriends').html('');
 					$('input[name="checkableitems[]"]:checked').each(function(index) {
 					  var uid = $(this).attr('id').substring(5);	
@@ -90,7 +90,7 @@ var getTheUsersFromTheQuery = function(semantic) {
 } 
 
 // Query's bar listener
-$('#gsfhackquery').keyup(function() {
+$('#gsfhackquery').on("keyup webkitspeechchange",function() {
 	var new_query = $(this).val();
 	if (new_query == "") {
 		$('#gsfhack-autocomplete').css('display', 'none');
