@@ -32,24 +32,25 @@ function getEntity(entities, uid){
     return false;
 }
 
-function downloadAutoComplete(search_string,user_id,callback){
+function downloadAutoComplete(search_string,callback){
   //Replace by Thiago's function
   //jQuery
   //Complete the get with string passed*********
   //var data = $.get('http://www.las.ic.unicamp.br/~gabriel/pub/result.php', function parseSuggestionList(data){
   console.log(search_string);
+  var userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
   var json_query = {
                     value : JSON.stringify(search_string),
                     context : 'facebar',
                     grammar_version : '7ca1b059f1a46f3d3cb62914007c6e86432a41e1',
-                    viewer : '100001618628742',
+                    viewer : userId,
                     rsp : 'search',
                     sid : 0.11356468964368105,
                     qid : 5,
                     see_more : false,
                     max_results : 8,
                     num_entities : 0,
-                    __user : user_id,
+                    __user : userId,
                     __a : 1,
                     __dyn : '7n8ahxoNpGodo',
                     __req : 35 }
@@ -74,6 +75,6 @@ function downloadAutoComplete(search_string,user_id,callback){
 //
 var a = ["My Friends who live in ", {text: "Curitiba, Brazil", type :"page", uid:106336072738718}, " and like"];
 var a = ["Graph"];
-console.log(JSON.stringify(a));
-//downloadAutoComplete(a,100001618628742, function log (data){ console.log(data);});
+//console.log(JSON.stringify(a));
+//downloadAutoComplete(a, function log (data){ console.log(data);});
 //chrome.cookies.get(object details, function callback);
