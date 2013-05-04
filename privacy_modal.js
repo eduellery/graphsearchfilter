@@ -12,11 +12,13 @@ $('#gsfhackhidden').append('<input name="__user" type="hidden" value="' + $.pars
 // 
 var getTheUsersFromTheQuery = function(semantic) {
 
+	$('#gsfhackloader').remove();
 	var loader = '<div id="gsfhackloader"><div class="fbProfileBrowserNullstate fbProfileBrowserListContainer fsxl fcg">' +
 				 	'<img class="throbber img" src="https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif" alt="" width="32" height="32"/>' +
 				 		'<br>Loading...' +
 				 '</div></div>'
 	$('.fbProfileBrowserResult').first().append(loader);
+	$('#filtered_graph_people').html('');
 
 	getUsers(semantic, function(list) {
 		$('#gsfhackloader').remove();
@@ -73,11 +75,14 @@ $('#gsfhackquery').keyup(function() {
 			for (var i  = 0; i < list.length; i++) {
 				var suggestion = list[i];
 				var text = "";
+				var selectedQuery = "";
 				for (var j  = 0; j < suggestion.query.length; j++) {
 					if (typeof(suggestion.query[j]) == 'string') {
 						text += suggestion.query[j] + " ";
+						selectedQuery += suggestion.query[j] + " ";
 					} else {
 						text += "<b>" + suggestion.query[j].text + "</b> ";
+						selectedQuery += suggestion.query[j].text;
 					}
 				};
 				if (suggestion.category != '' && suggestion.category != undefined) {
@@ -88,14 +93,19 @@ $('#gsfhackquery').keyup(function() {
 				}	
 				var div_sug = '<div id="sug' + i + '" class="gsfhack-sugbox" >' + text + '</div>';
 				var secret_query = '<input id="secv' + i + '" type="hidden" value="' + suggestion.semantic + '" />';
+				var secret_text = '<input id="sectext' + i + '" type="hidden" value="' + selectedQuery + '" />';
 				$('#gsfhack-autocomplete').append(div_sug);
 				$('#sug' + i).append(secret_query);
+				$('#sug' + i).append(secret_text);
 				$('#sug' + i).click(function() {
 					$(this).unbind('click');
 					var semanticsres = $(this).find('input').first().val();
+					var textres = $(this).children(':last-child').val();
+					console.log('Resolvido ' + textres);
 					$('#gsfhack-autocomplete').html('');
 					$('#gsfhack-autocomplete').css('display', 'none');
 					getTheUsersFromTheQuery(semanticsres);
+					$('#gsfhackquery').val(textres);
 				});
 			};
 		});

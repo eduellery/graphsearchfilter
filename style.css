@@ -59,4 +59,6 @@
 .gsfhack-results-box {
 	margin-bottom: 32px;
 	margin-top: 32px;
+	overflow: auto;
+	height: 200px;
 }
