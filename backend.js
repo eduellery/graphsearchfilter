@@ -122,7 +122,7 @@ function makeAPIUser(fbUser){
 
 function getUsersFromHtml(html){
     var cHtml = $.parseHTML(html);
-    var userDivs = $("img.img[src$=\".jpg\"]", cHtml).closest(".uiContextualLayerParent")
+    var userDivs = $("img.img[src$=\".jpg\"]", cHtml).parent().parent().parent();
 
     var users = [];
     userDivs.each(function(k, v){
@@ -146,9 +146,9 @@ function getFirstPageUsers(searchPage){
     var d = $.Deferred();
 
     var commentedSnippets = searchPage.match(/<!--(.*?)-->/g);
+    console.log(commentedSnippets);
     var users = [];
 
-    l(commentedSnippets);
     for(var i in commentedSnippets)
         users = users.concat(getUsersFromHtml(commentedSnippets[i].replace("<!--", "").replace("-->", "")));
 
