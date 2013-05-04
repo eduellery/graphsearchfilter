@@ -5,3 +5,4 @@ $('#gsfhackok').click(function() {
 $('#gsfhackcancel').click(function() {
   $('#gsfhackmodal').remove();
 });
+$('#gsfhackhidden').append($('input[name="fb_dtsg"]').first().clone())
