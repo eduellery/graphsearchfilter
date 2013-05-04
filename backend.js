@@ -145,14 +145,19 @@ function getFirstPageUsers(searchPage){
 
     var d = $.Deferred();
 
-    var commentedSnippet = searchPage.match(/<!--(.*?)-->/)[1];
-    var users = getUsersFromHtml(commentedSnippet);
+    var commentedSnippets = searchPage.match(/<!--(.*?)-->/g);
+    var users = [];
+
+    l(commentedSnippets);
+    for(var i in commentedSnippets)
+        users = users.concat(getUsersFromHtml(commentedSnippets[i].replace("<!--", "").replace("-->", "")));
+
     l(users);
 
     // Does not work for nested objects. Fortunately, we're not dealing with any today.
     var candidateObjects = searchPage.match(/\{.*?\}/g);
 
-    var queryObject = null;
+    var queryObject = {};
     var cursor = null;
 
     for(var i in candidateObjects){
@@ -165,9 +170,10 @@ function getFirstPageUsers(searchPage){
         } catch(e) { }
     }
 
-    if(!queryObject){
+    if(users.length == 0){
         l("No results!");
         d.reject([]);
+        return d.promise();
     }
 
     queryObject.cursor = cursor;
@@ -230,11 +236,12 @@ function getRemainingUsers(result){
 
         var data = parseJsonResponse(resultPage);
         findUserObjects(data.jsmods.require);
-        
+
         result.users = result.users.concat(newUsers);
 
         if(nextCursor == undefined || newUsers.length == 0){
-            l("Next cursor not found.")
+            l("Next cursor not found. " + result.users.length + " total");
+            l(data);
             d.resolve(result.users);
         } else {
             l(["Users entrando", newUsers]);
@@ -244,23 +251,25 @@ function getRemainingUsers(result){
     }
 
 
-
-    getNextPage(processPage);
+    if(!result.queryObject.cursor)
+        d.resolve(result.users);
+    else
+        getNextPage(processPage);
 
     return d.promise();
 }
 
 function getUsers(semantic, callback){
 
-    // getFirstPage(semantic, callback)
-    //     .then(getFirstPageUsers, callback)
-    //     .then(getRemainingUsers, callback)
-    //     .then(callback, callback);
+    getFirstPage(semantic, callback)
+        .then(getFirstPageUsers, callback)
+        .then(getRemainingUsers, callback)
+        .then(callback, callback);
 
-    getFirstPage(semantic)
-        .then(getFirstPageUsers)
-        .then(getRemainingUsers)
-        .then(callback);
+    // getFirstPage(semantic)
+    //     .then(getFirstPageUsers)
+    //     .then(getRemainingUsers)
+    //     .then(callback);
 
 }
 
