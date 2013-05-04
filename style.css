@@ -58,7 +58,23 @@
 
 .gsfhack-results-box {
 	margin-bottom: 32px;
-	margin-top: 32px;
+	margin-top: 16px;
 	overflow: auto;
 	height: 200px;
+}
+
+#checkeverybody {
+	display: inline-block; 
+}
+
+.boxcheckeverybody {
+	display: inline-block;
+	margin-left: 25px;	
+	margin-top: 25px;
+	padding: 6px;
+	background-color: #5b74a8;
+	border-color: #29447e #29447e #1a356e;
+	color: #fff;
+	font-weight: bold;
+	cursor: pointer;
 }
