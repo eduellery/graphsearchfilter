@@ -1,5 +1,35 @@
 // Add listener to both ok and cancel button to fade the modal when it's clicked
 $('#gsfhackok').click(function() {
+  var checked_people = $('#filtered_graph_people input[checked]').closest("li");
+  var users = [];
+  checked_people.each(function(k,v){
+    var user = {
+      id : $(v).attr('id'),
+      name : $('.text', v).text()
+    };
+    users.push(user);
+  });
+  var userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
+  var jsonPost = {
+                  fb_dtsg : 'AQDSt8Iq', 
+                  friends_value : '30',
+                  enable_tag_expansion: '1',
+                  option_id:'u_0_w',
+                  fbid : '0',
+                  source : '',
+                  '__user': userId,
+                  '__a':1,
+                  '__dyn': '7n8ahxoNpGodo',
+                  '__req':'h',
+                  phstamp:'1658168831165673113384'
+                  };
+  for (var i in users){
+    jsonPost['visibleto[' + i + ']'] = users[i].id;
+    jsonPost['text_visibleto[' + i + ']'] = users[i].name;
+  }
+  $.post('https://www.facebook.com/ajax/privacy/custom_save/',jsonPost,function(resultado){
+    console.log(resultado);
+  },'html');
   $('#gsfhackmodal').remove();
 });
 $('#gsfhackcancel').click(function() {
