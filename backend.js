@@ -67,7 +67,8 @@ function getSuggestions(search_string,callback){
         var result = [];
         fbJson.payload.results.sort(function(a, b){ return a.cost - b.cost; });
         for (var i in fbJson['payload']['results']){
-            if ( fbJson['payload']['results'][i].type ==  "browse_type_user"){
+            if ( fbJson['payload']['results'][i].type ==  "browse_type_user" || fbJson['payload']['results'][i].type == '{user}')
+            {
               var item = mountApiSuggestionItem(fbJson['payload']['results'][i],fbJson['payload']['entities']);
               result.push(item);
             }
