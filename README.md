@@ -1,5 +1,8 @@
 graphsearchfilter
 =================
+[Get on Chrome WebStore](https://chrome.google.com/webstore/detail/admkplalkphcdkbkapdmkmobilbhmplp)
+
+
 Graph Picker is a chrome plugin that works like a user script (GreaseMonkey, TamperMonkey).
 It enables posts and other activities (such as event sending) to a customizable audience retrieved from Graph Search (https://www.facebook.com/graphsearcher).
 
