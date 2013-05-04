@@ -1,16 +1,17 @@
-// // Add listener to both ok and cancel button to fade the modal when it's clicked
-// $('#gsfhackok').click(function() {
-//   var checked_people = $('#filtered_graph_people input:checked').closest("li");
-//   console.log(checked_people);
-//   var users = [];
-//   checked_people.each(function(k,v){
-//     var user = {
-//       id : $(v).attr('id'),
-//       name : $('.text', v).text()
-//     };
-//     users.push(user);
-//   });
+// Add listener to both ok and cancel button to fade the modal when it's clicked
+$('#gsfhackok').click(function() {
+  var checked_people = $('#filtered_graph_people input:checked').closest("li");
 
+  var ids = [];
+  checked_people.each(function(k,v){
+    ids.push($(v).attr('id'));
+  });
+  console.log(ids);
+
+  $("input[name=\"who\"]").val(ids.join(','));
+  $('#gsfhackmodal').remove();
+
+});
 //   $("input[name^=\"audience\"]").remove();
 //   //$("select[name^=\"audience\"]").remove();
 
