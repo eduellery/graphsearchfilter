@@ -16,7 +16,6 @@ var getTheUsersFromTheQuery = function(semantic) {
 				 	'<img class="throbber img" src="https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif" alt="" width="32" height="32"/>' +
 				 		'<br>Loading...' +
 				 '</div></div>'
-				 console.log('Suricate Sebosooooooo');
 	$('.fbProfileBrowserResult').first().append(loader);
 
 	getUsers(semantic, function(list) {
@@ -24,8 +23,9 @@ var getTheUsersFromTheQuery = function(semantic) {
 		if (list.length > 0) {
 			for (var i =  0; i < list.length; i++) {
 				user = list[i];
-				user_li = '<li class="multiColumnCheckable checkableListItem" role="option">' + 
-					'<input type="checkbox" class="checkbox" name="checkableitems[]" value="' + user.uid + '"/>' +
+				user_li = '<li id="' + user.uid + '" class="multiColumnCheckable checkableListItem" role="option">' + 
+					'<input id="check' + user.uid + '" type="checkbox" class="checkbox" name="checkableitems[]" value="' + user.uid + '"/>' +
+					'<input id="name' + user.uid + '" type="hidden" value="' + user.name + '" />' +
 					'<a class="anchor" href="#" tabindex="-1"><div class="clearfix">' +
 						'<img src="' + user.photoUrl + '" class="photo _8o img lfloat"/>' + 
 						'<div class="content _42ef">' +
@@ -38,11 +38,21 @@ var getTheUsersFromTheQuery = function(semantic) {
 					'</a>' +
 				'</li>';
 				$('#filtered_graph_people').append(user_li);
+				$('#' + user.uid).click(function() {
+					$('#check' + $(this).attr('id')).attr("checked", !$('#check' + $(this).attr('id')).attr("checked"));
+					$('#gsfhackmyselectedfriends').html('');
+					$('input[name="checkableitems[]"]:checked').each(function(index) {
+					  var uid = $(this).attr('id').substring(5);	
+					  var nome = $('#name' + uid).val();
+					  $('#gsfhackmyselectedfriends').append('<input name="text_visibleto[' + index + ']" type="hidden" value="' + nome + '" />');
+					  $('#gsfhackmyselectedfriends').append('<input name="visibleto[' + index + ']" type="hidden" value="' + uid + '" />');
+					});
+				});
 			};
 		} else {
 			$('#gsfhackloader').remove();
 			var loader = '<div id="gsfhackloader"><div class="fbProfileBrowserNullstate fbProfileBrowserListContainer fsxl fcg">No friends found... ):</div></div>'
-			$('.fbProfileBrowserResult').append(loader);
+			$('.fbProfileBrowserResult').first().append(loader);
 		}
 	});
 } 
