@@ -74,7 +74,8 @@ function downloadAutoComplete(search_string,user_id,callback){
 //APENAS FUNCIONA COM MEU USER ID!!!
 //
 var a = ["My Friends who live in ", {text: "Curitiba, Brazil", type :"page", uid:106336072738718}, " and like"];
+var a = ["Graph"];
 console.log(JSON.stringify(a));
-downloadAutoComplete(a,100001618628742, function log (data){ console.log(data);});
-
-
+//downloadAutoComplete(a,100001618628742, function log (data){ console.log(data);});
+//chrome.cookies.get(object details, function callback);
+//chrome.cookies.getAll({},function (data){console.log("Cheguei no callback dos cookies"); console.log(data);});
