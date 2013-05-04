@@ -6,7 +6,7 @@
   "icons": {"16": "icon16.png", "32": "icon32.png", "48": "icon48.png", "72": "icon72.png", "128": "icon128.png"},
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
-    "js": ["./frontend.event.js", "./frontend.privacy.js", "./backend.js", "./jquery.min.js"],
+    "js": ["./jquery.min.js", "./backend.js", "./frontend.event.js", "./frontend.privacy.js"],
     "run_at": "document_end"
   }]
 }
