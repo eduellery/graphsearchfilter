@@ -44,5 +44,11 @@ function getEntity(entities, uid){
     return false;
 }
 
-
+function downloadAutoComplete(search_string){
+  //Replace by Thiago's function
+  //jQuery
+  var data = $.getJSON('http://www.las.ic.unicamp.br/~gabriel/pub/result.json', function(data) {
+    console.log("Download with succes!");});
+  return data;
+}
 
