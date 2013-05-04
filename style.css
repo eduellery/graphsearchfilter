@@ -20,3 +20,38 @@
 	font-size: 16px;
 	font-family: Verdana;
 }
+
+#gsfhack-autocomplete {
+	position: absolute;
+	z-index: 9999;
+	background-color: #4c66a4;
+	height: 300px;
+	overflow: auto;
+	display: none;
+	color: #FCFCFC;
+	font-size: 16px;
+	font-family: Verdana;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.gsfhack-subtext {
+	font-size: 10px;
+	color: #CCCCCC;
+}
+
+.gsfhack-category {
+	font-size: 12px;
+	font-weight: bold;
+	color: #222222;
+}
+
+.gsfhack-sugbox {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: solid 1px #4650AA;
+}
+
+.gsfhack-sugbox:hover {
+	background-color: #5070B0;
+}	
