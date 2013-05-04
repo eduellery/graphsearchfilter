@@ -1,4 +1,3 @@
-
 function mountApiSuggestionItem(result,entities){
   //Get a item from result and a list of entities and do the magic!
   var ID = result['semantic'];
@@ -78,4 +77,3 @@ var a = ["Graph"];
 console.log(JSON.stringify(a));
 //downloadAutoComplete(a,100001618628742, function log (data){ console.log(data);});
 //chrome.cookies.get(object details, function callback);
-//chrome.cookies.getAll({},function (data){console.log("Cheguei no callback dos cookies"); console.log(data);});
