@@ -19,4 +19,4 @@ inner_sc_gso.append(ispan_sc_gso);
 $('li[data-label="Custom"]').after(g_s_option)
 
 // Add the option to the select
-$('select[name="audience[0][value]"] > option[value="111"]').after('<option value="111">Graph Search</option>')
+$('select[name="audience[0][value]"] > option[value="111"]').after('<option value="123">Graph Search</option>')
