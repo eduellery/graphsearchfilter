@@ -8,6 +8,7 @@ function mountApiSuggestionItem(result,entities){
   var display = result['parse']['display'];
   var newQuery = [];
   var subtext = '';
+  var category = '';
   for(var i in display){
       if(typeof(display[i]) == "string"){
           newQuery.push(display[i]);
@@ -16,12 +17,12 @@ function mountApiSuggestionItem(result,entities){
           var getEntityResult = getEntity(entities, entity.uid)
           entity.type = getEntityResult.type;
           entity.text = getEntityResult.text;
+          category = getEntityResult.category_rendered;
           subtext = getEntityResult.subtext;
           newQuery.push(entity);
       }
   }
-  var response =  {'query': newQuery, 'subtext' : subtext};
-  response[ID] = semanticForest;
+  var response =  {'query': newQuery, 'subtext' : subtext, 'category' : category};
   response.semantic = ID;
   return response;
   
@@ -35,11 +36,14 @@ function getEntity(entities, uid){
     return false;
 }
 
-function downloadAutoComplete(search_string,callback){
+function getSuggestions(search_string,callback){
   //Replace by Thiago's function
   //jQuery
   //Complete the get with string passed*********
   //var data = $.get('http://www.las.ic.unicamp.br/~gabriel/pub/result.php', function parseSuggestionList(data){
+  if (typeof(search_string) == 'string'){
+    search_string = [search_string];
+  }
   console.log(search_string);
   var userId = $(".headerTinymanPhoto").attr("id").match(/\d+/)[0];
   var json_query = {
@@ -79,6 +83,6 @@ function downloadAutoComplete(search_string,callback){
 var a = ["My Friends who live in ", {text: "Curitiba, Brazil", type :"page", uid:106336072738718}, " and like"];
 //var a = ["Graph"];
 //console.log(JSON.stringify(a));
-//downloadAutoComplete(a, function log (newQuery){
-//  console.log("Results from autcomplete above");
-//  console.log(newQuery);});
+getSuggestions(a, function log (newQuery){
+  console.log("Results from autcomplete above");
+  console.log(newQuery);});
