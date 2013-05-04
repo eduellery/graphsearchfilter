@@ -16,7 +16,16 @@ var ispan_sc_gso = inner_sc_gso.children('span').clone();
 inner_sc_gso.text(GRAPH_SEARCH_LABEL);
 inner_sc_gso.append(ispan_sc_gso);
 
+// Adds a listener to it, so it can load the graph search modal
+g_s_option.click(function() {
+  $('body').append('<div id="gsfhackmodal"></div>')
+  $('#gsfhackmodal').load(chrome.extension.getURL('privacy_modal.html'), function() {
+    $('#gsfhackmodal').append('<script type="text/javascript" src="' + chrome.extension.getURL("./privacy_modal.js") + '"></script>');
+  });
+});
+
+// And finally insert our new option
 $('li[data-label="Custom"]').after(g_s_option)
 
 // Add the option to the select
-$('select[name="audience[0][value]"] > option[value="111"]').after('<option value="123">Graph Search</option>')
+$('select[name="audience[0][value]"] > option[value="111"]').after('<option value="666">Graph Search</option>')

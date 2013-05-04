@@ -5,7 +5,10 @@
   "version": "1.0",
   "optional_permissions": ["http://www.las.ic.unicamp.br/~gabriel/pub/result.json" ],
   "icons": {"16": "icon16.png", "32": "icon32.png", "48": "icon48.png", "72": "icon72.png", "128": "icon128.png"},
-  "web_accessible_resources": ["icon16.png"],
+  "web_accessible_resources": 
+    ["icon16.png", 
+     "privacy_modal.html", 
+     "privacy_modal.js"],
   "content_scripts": [{
     "matches": ["http://*.facebook.com/*", "https://*.facebook.com/*"],
     "css": ["./style.css"],
