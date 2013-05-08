@@ -11,7 +11,6 @@ $('#gsfhackok').click(function() {
   });
 
   $("input[name^=\"audience\"]").remove();
-  //$("select[name^=\"audience\"]").remove();
 
   function createInput(name, value){
 		var el = $("<input />")
@@ -43,7 +42,6 @@ $('#gsfhackcancel').click(function() {
 $('#gsfhackhidden').append($('input[name="fb_dtsg"]').first().clone())
 $('#gsfhackhidden').append('<input name="__user" type="hidden" value="' + $.parseJSON($('a.fbxWelcomeBoxBlock').first().attr('data-gt'))["bmid"] + '">');
 
-// 
 var getTheUsersFromTheQuery = function(semantic) {
 
 	$('#gsfhackloader').remove();

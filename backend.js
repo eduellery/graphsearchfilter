@@ -35,10 +35,6 @@ function getEntity(entities, uid){
 }
 
 function getSuggestions(search_string,callback){
-    //Replace by Thiago's function
-    //jQuery
-    //Complete the get with string passed*********
-    //var data = $.get('http://www.las.ic.unicamp.br/~gabriel/pub/result.php', function parseSuggestionList(data){
     if (typeof(search_string) == 'string'){
         search_string = [search_string];
     }
@@ -74,17 +70,6 @@ function getSuggestions(search_string,callback){
         
     }, "html");
 }
-
-//downloadAutoComplete('bla', function log (data){ console.log(data);});
-//APENAS FUNCIONA COM MEU USER ID!!!
-//
-// var a = ["My Friends who live in ", {text: "Curitiba, Brazil", type :"page", uid:106336072738718}, " and like"];
-//var a = ["Graph"];
-//console.log(JSON.stringify(a));
-// getSuggestions(a, function log (newQuery){
-//   console.log("Results from autcomplete above");
-//   console.log(newQuery);});
-
 
 // Constants
 var searchBaseUrl = "https://www.facebook.com/search/"
@@ -253,15 +238,4 @@ function getUsers(semantic, callback){
         .then(getRemainingUsers, callback)
         .then(callback, callback);
 
-    // getFirstPage(semantic)
-    //     .then(getFirstPageUsers)
-    //     .then(getRemainingUsers)
-    //     .then(callback);
-
 }
-
-// var testQuery = ["My friends who live in ",{"uid":"105429806157119","type":"page","text":"Brazil"}," and are younger than me"];
-// getSuggestions(testQuery, function(suggestions){
-//     var s = suggestions[0].semantic;
-//     getUsers(s, function(d){ console.log(["ACABOU", d]); });
-// });
