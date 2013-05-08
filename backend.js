@@ -1,6 +1,3 @@
-
-function l(data){ console.log(data); }
-
 function mountApiSuggestionItem(result,entities){
     //Get a item from result and a list of entities and do the magic!
     var ID = result['semantic'];
@@ -45,7 +42,6 @@ function getSuggestions(search_string,callback){
     if (typeof(search_string) == 'string'){
         search_string = [search_string];
     }
-    console.log(search_string);
     var json_query = {
                                         value : JSON.stringify(search_string),
                                         context : 'facebar',
@@ -145,18 +141,13 @@ function getUsersFromHtml(html){
 }
 
 function getFirstPageUsers(searchPage){
-    l("Search page OK");
-
     var d = $.Deferred();
 
     var commentedSnippets = searchPage.match(/<!--(.*?)-->/g);
-    console.log(commentedSnippets);
     var users = [];
 
     for(var i in commentedSnippets)
         users = users.concat(getUsersFromHtml(commentedSnippets[i].replace("<!--", "").replace("-->", "")));
-
-    l(users);
 
     // Does not work for nested objects. Fortunately, we're not dealing with any today.
     var candidateObjects = searchPage.match(/\{.*?\}/g);
@@ -175,7 +166,6 @@ function getFirstPageUsers(searchPage){
     }
 
     if(users.length == 0){
-        l("No results!");
         d.reject([]);
         return d.promise();
     }
@@ -188,8 +178,6 @@ function getFirstPageUsers(searchPage){
         users: users,
         queryObject: queryObject
     }
-
-    l(result);
 
     d.resolve(result);
     return d.promise();
@@ -209,8 +197,6 @@ function getRemainingUsers(result){
     }
 
     function processPage(resultPage){
-        l("Get page OK... " + result.users.length + " users so far");
-
         var nextCursor = undefined;
 
         var data = parseJsonResponse(resultPage);
@@ -244,11 +230,8 @@ function getRemainingUsers(result){
         result.users = result.users.concat(newUsers);
 
         if(nextCursor == undefined || newUsers.length == 0){
-            l("Next cursor not found. " + result.users.length + " total");
-            l(data);
             d.resolve(result.users);
         } else {
-            l(["Users entrando", newUsers]);
             result.queryObject.cursor = nextCursor;
             getNextPage(processPage);
         }

@@ -16,9 +16,7 @@ $(function(){
 		var inputs = $("input[name=\"who\"]", target);
 		if(inputs.length == 0) return;
 
-	  	console.log("node inserted: %s", e.target.nodeName);
 	  	var a = $('input[name=\"who\"]').parent();
-		console.log(a);
 		a.append("<span> | </span>");
 
 		$("<a>Invite friends with GraphPicker</a>")
