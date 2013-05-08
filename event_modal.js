@@ -6,7 +6,6 @@ $('#gsfhackok').click(function() {
   checked_people.each(function(k,v){
     ids.push($(v).attr('id'));
   });
-  console.log(ids);
 
   $("input[name=\"who\"]").val(ids.join(','));
   $('#gsfhackmodal').remove();
@@ -125,7 +124,6 @@ $('#gsfhackquery').on("keyup webkitspeechchange",function() {
 					$(this).unbind('click');
 					var semanticsres = $(this).find('input').first().val();
 					var textres = $(this).children(':last-child').val();
-					console.log('Resolvido ' + textres);
 					$('#gsfhack-autocomplete').html('');
 					$('#gsfhack-autocomplete').css('display', 'none');
 					getTheUsersFromTheQuery(semanticsres);

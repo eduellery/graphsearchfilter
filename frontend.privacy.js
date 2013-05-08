@@ -1,7 +1,4 @@
 $(function(){
-	console.log("weee");
-	console.log($('li[data-label="Custom"]'));
-
 	var GRAPH_SEARCH_LABEL = 'GraphPicker';
 
 	// Copy the Custom privacy option, and polish the clone (turn it into a Graph Search option)

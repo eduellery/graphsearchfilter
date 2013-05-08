@@ -1,7 +1,6 @@
 // Add listener to both ok and cancel button to fade the modal when it's clicked
 $('#gsfhackok').click(function() {
   var checked_people = $('#filtered_graph_people input:checked').closest("li");
-  console.log(checked_people);
   var users = [];
   checked_people.each(function(k,v){
     var user = {
@@ -20,7 +19,6 @@ $('#gsfhackok').click(function() {
 		  	.attr("autocomplete", "off")
 		  	.attr("name", name)
 		  	.attr("value", value);
-		console.log(el);
 		return el;
   }
 
@@ -158,7 +156,6 @@ $('#gsfhackquery').on("keyup webkitspeechchange",function() {
 					$(this).unbind('click');
 					var semanticsres = $(this).find('input').first().val();
 					var textres = $(this).children(':last-child').val();
-					console.log('Resolvido ' + textres);
 					$('#gsfhack-autocomplete').html('');
 					$('#gsfhack-autocomplete').css('display', 'none');
 					getTheUsersFromTheQuery(semanticsres);
